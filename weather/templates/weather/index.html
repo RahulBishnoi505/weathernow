@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'weather/styles.css' %}">
+    <title>WeatherNow</title>
+</head>
+<body>
+    
+    <nav class="nav-bar">
+        <h2 class="nav-title">Weather Now</h2>
+    </nav>
+    <section>
+        <div class="search">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div>
+                    <input type="text" placeholder="Search" name="city" class="search-box">
+                    <button class="search-btn">Search</button>
+                </div>
+            </form>
+        </div>  
+    </section>
+    <section class="output">
+        {% if data.country_code %}
+            <div>
+                <h1> {{ data.city }} </h1>
+                <h2> {{data.weather}} </h2>
+                <h3>country code : {{ data.country_code }} </h3>
+                <h3>coordinate : {{ data.coordinates }} </h3>
+                <h3>temp : {{ data.temp }} </h3>
+                <h3>pressure : {{ data.pressure }} </h3>
+                <h3>humidity : {{ data.humidity }} </h3>     
+            </div>
+        {% elif data.error %}
+            <h2>{{ data.error }}</h2>
+        {% endif %}
+        
+    </section>
+
+</body>
+</html>
